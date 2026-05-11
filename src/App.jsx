@@ -325,7 +325,7 @@ function App() {
                 <button className="btn btn-secondary">View All &rarr;</button>
               </div>
 
-              <div className="grid grid-cols-4" style={{ gap: '2rem' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: '2rem' }}>
                 {(siteData?.collections || [
                   { id: 1, name: "MELLER", description: "Made in Spain", image: "/model_sunglasses.png" },
                   { id: 2, name: "LE PETIT", description: "Made in Paris", image: "/model_glasses_gold.png" },
@@ -520,7 +520,7 @@ function App() {
                 <h2 style={{ fontSize: '2.5rem', marginTop: '0.5rem' }}>{siteData?.servicesTitle || "Clinical Excellence Delivered."}</h2>
               </div>
 
-              <div className="grid grid-cols-3" style={{ gap: '2rem' }}>
+              <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '2rem' }}>
                 {(siteData?.services || [
                   { id: 1, title: "Advanced Eye Test", description: "Comprehensive diagnostics using state-of-the-art AI imaging technology." },
                   { id: 2, title: "Custom Lens Crafting", description: "Lenses tailored specifically to your prescription and lifestyle needs." },
