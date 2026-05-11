@@ -13,6 +13,7 @@ function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [siteData, setSiteData] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -190,14 +191,14 @@ function App() {
           <nav className="glass" style={{
         position: 'fixed',
         width: '90%',
-        top: '1.5rem',
+        top: isMobile ? '0.5rem' : '1.5rem',
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 100,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '1rem 2rem',
+        padding: isMobile ? '0.5rem 1rem' : '1rem 2rem',
         borderRadius: 'var(--radius-full)',
         boxShadow: 'var(--shadow-cinematic)'
       }}>
@@ -245,20 +246,74 @@ function App() {
           </div>
         )}
 
-        <div className="nav-buttons" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <button style={{ padding: '0.5rem' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        {isMobile ? (
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} style={{ padding: '0.5rem', color: 'var(--text-primary)' }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
           </button>
-          <button style={{ padding: '0.5rem' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-          </button>
-          <button className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>Book Test</button>
-        </div>
+        ) : (
+          <div className="nav-buttons" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <button style={{ padding: '0.5rem' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+            <button style={{ padding: '0.5rem' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            </button>
+            <button className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>Book Test</button>
+          </div>
+        )}
+
+        {/* Mobile Dropdown Menu */}
+        {isMobile && mobileMenuOpen && (
+          <div style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            width: '100%',
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: 'var(--radius-xl)',
+            boxShadow: 'var(--shadow-lg)',
+            padding: '1rem',
+            marginTop: '0.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem',
+            zIndex: 99
+          }}>
+            {['Collections', 'Virtual Try-On', 'Services', 'About'].map((item) => (
+              <a
+                key={item}
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveNav(item);
+                  setMobileMenuOpen(false); // Close menu
+                  const id = item.toLowerCase().replace(' ', '-');
+                  const element = document.getElementById(id);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                style={{
+                  color: activeNav === item ? 'var(--accent-blue)' : 'var(--text-secondary)',
+                  fontWeight: 500,
+                  fontSize: '1rem',
+                  padding: '0.75rem 1rem',
+                  borderRadius: 'var(--radius-md)',
+                  backgroundColor: activeNav === item ? 'rgba(37, 99, 235, 0.05)' : 'transparent',
+                  transition: 'background-color 0.2s ease'
+                }}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
       <section className="section-padding" style={{ position: 'relative', overflow: 'hidden' }}>
-        <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: isMobile ? '2rem' : '4rem', minHeight: isMobile ? 'auto' : '80vh', paddingTop: isMobile ? '6rem' : '0' }}>
+        <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: isMobile ? '2rem' : '4rem', minHeight: isMobile ? 'auto' : '80vh', paddingTop: isMobile ? '12rem' : '0' }}>
           <div style={{ zIndex: 1 }}>
             <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent-blue)' }}>Clinical Precision & Luxury</span>
             <h1 className="hero-title" style={{ marginTop: '1rem', marginBottom: '1.5rem', lineHeight: '1.1' }}>
@@ -464,27 +519,27 @@ function App() {
             {/* Tech details */}
             <div className="glass" style={{
               position: 'absolute',
-              bottom: '-2rem',
+              bottom: isMobile ? '-1rem' : '-2rem',
               left: '50%',
               transform: 'translateX(-50%)',
-              width: '80%',
-              padding: '1.5rem',
+              width: isMobile ? '90%' : '80%',
+              padding: isMobile ? '0.75rem' : '1.5rem',
               borderRadius: 'var(--radius-xl)',
               display: 'flex',
               justifyContent: 'space-between',
               boxShadow: 'var(--shadow-lg)'
             }}>
               <div>
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>MAPPING POINTS</p>
-                <p style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent-blue)' }}>1,024</p>
+                <p style={{ fontSize: isMobile ? '0.6rem' : '0.75rem', color: 'var(--text-muted)' }}>MAPPING</p>
+                <p style={{ fontSize: isMobile ? '1rem' : '1.25rem', fontWeight: 700, color: 'var(--accent-blue)' }}>1,024</p>
               </div>
-              <div style={{ borderLeft: '1px solid rgba(0,0,0,0.1)', paddingLeft: '1.5rem' }}>
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>LATENCY</p>
-                <p style={{ fontSize: '1.25rem', fontWeight: 700, color: '#10b981' }}>12ms</p>
+              <div style={{ borderLeft: '1px solid rgba(0,0,0,0.1)', paddingLeft: isMobile ? '0.5rem' : '1.5rem' }}>
+                <p style={{ fontSize: isMobile ? '0.6rem' : '0.75rem', color: 'var(--text-muted)' }}>LATENCY</p>
+                <p style={{ fontSize: isMobile ? '1rem' : '1.25rem', fontWeight: 700, color: '#10b981' }}>12ms</p>
               </div>
-              <div style={{ borderLeft: '1px solid rgba(0,0,0,0.1)', paddingLeft: '1.5rem' }}>
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>STATUS</p>
-                <p style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>READY</p>
+              <div style={{ borderLeft: '1px solid rgba(0,0,0,0.1)', paddingLeft: isMobile ? '0.5rem' : '1.5rem' }}>
+                <p style={{ fontSize: isMobile ? '0.6rem' : '0.75rem', color: 'var(--text-muted)' }}>STATUS</p>
+                <p style={{ fontSize: isMobile ? '1rem' : '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>READY</p>
               </div>
             </div>
           </div>
@@ -588,7 +643,7 @@ function App() {
             <div style={{ position: 'relative' }}>
               <div style={{
                 width: '100%',
-                height: '500px',
+                height: isMobile ? '300px' : '500px',
                 backgroundColor: '#f8f9fa',
                 borderRadius: 'var(--radius-2xl)',
                 overflow: 'hidden',

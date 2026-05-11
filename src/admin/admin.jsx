@@ -33,6 +33,14 @@ const Admin = ({ currentPath, navigate }) => {
   const [newService, setNewService] = useState({ title: "", desc: "" });
   const [editingServiceId, setEditingServiceId] = useState(null);
   const [toast, setToast] = useState({ show: false, message: "", type: "success" });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const showToast = (message, type = "success") => {
     setToast({ show: true, message, type });
@@ -244,6 +252,13 @@ const Admin = ({ currentPath, navigate }) => {
     display: "flex",
     flexDirection: "column",
     gap: "0.5rem",
+    position: isMobile ? 'fixed' : 'static',
+    left: isMobile ? (sidebarOpen ? 0 : '-240px') : 0,
+    top: 0,
+    height: '100vh',
+    zIndex: 1000,
+    transition: 'left 0.3s ease',
+    boxShadow: isMobile && sidebarOpen ? '0 0 15px rgba(0,0,0,0.1)' : 'none'
   };
 
   const sidebarLink = {
@@ -267,7 +282,7 @@ const Admin = ({ currentPath, navigate }) => {
 
   const headerStyle = {
     backgroundColor: "#fff",
-    padding: "1rem 2rem",
+    padding: isMobile ? "1rem" : "1rem 2rem",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -275,14 +290,14 @@ const Admin = ({ currentPath, navigate }) => {
   };
 
   const contentArea = {
-    padding: "2rem",
+    padding: isMobile ? "1rem" : "2rem",
     flex: 1,
     overflowY: "auto",
   };
 
   const cardStyle = {
     backgroundColor: "#fff",
-    padding: "2rem",
+    padding: isMobile ? "1.5rem 1rem" : "2rem",
     borderRadius: "0.5rem",
     border: "1px solid #e1e3e5",
     marginBottom: "2rem",
@@ -464,6 +479,18 @@ const Admin = ({ currentPath, navigate }) => {
 
     return (
       <div style={dashboardLayout}>
+        {/* Sidebar Overlay */}
+        {isMobile && sidebarOpen && (
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0, left: 0, width: '100vw', height: '100vh',
+              backgroundColor: 'rgba(0,0,0,0.3)',
+              zIndex: 999
+            }}
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
         {/* Sidebar */}
         <div style={sidebarStyle}>
           <div
@@ -482,7 +509,7 @@ const Admin = ({ currentPath, navigate }) => {
               backgroundColor: activeSection === 'home' ? "#fff" : "transparent",
               color: activeSection === 'home' ? "#2c6ecb" : "#202223",
             }}
-            onClick={() => setActiveSection('home')}
+            onClick={() => { setActiveSection('home'); if (isMobile) setSidebarOpen(false); }}
           >
             <span>🏠</span> Home
           </div>
@@ -492,7 +519,7 @@ const Admin = ({ currentPath, navigate }) => {
               backgroundColor: activeSection === 'collections' ? "#fff" : "transparent",
               color: activeSection === 'collections' ? "#2c6ecb" : "#202223",
             }}
-            onClick={() => setActiveSection('collections')}
+            onClick={() => { setActiveSection('collections'); if (isMobile) setSidebarOpen(false); }}
           >
             <span>🛍️</span> Collections
           </div>
@@ -502,7 +529,7 @@ const Admin = ({ currentPath, navigate }) => {
               backgroundColor: activeSection === 'virtual-try-on' ? "#fff" : "transparent",
               color: activeSection === 'virtual-try-on' ? "#2c6ecb" : "#202223",
             }}
-            onClick={() => setActiveSection('virtual-try-on')}
+            onClick={() => { setActiveSection('virtual-try-on'); if (isMobile) setSidebarOpen(false); }}
           >
             <span>🕶️</span> Virtual Try-On
           </div>
@@ -512,7 +539,7 @@ const Admin = ({ currentPath, navigate }) => {
               backgroundColor: activeSection === 'services' ? "#fff" : "transparent",
               color: activeSection === 'services' ? "#2c6ecb" : "#202223",
             }}
-            onClick={() => setActiveSection('services')}
+            onClick={() => { setActiveSection('services'); if (isMobile) setSidebarOpen(false); }}
           >
             <span>🛠️</span> Services
           </div>
@@ -522,7 +549,7 @@ const Admin = ({ currentPath, navigate }) => {
               backgroundColor: activeSection === 'about' ? "#fff" : "transparent",
               color: activeSection === 'about' ? "#2c6ecb" : "#202223",
             }}
-            onClick={() => setActiveSection('about')}
+            onClick={() => { setActiveSection('about'); if (isMobile) setSidebarOpen(false); }}
           >
             <span>ℹ️</span> About
           </div>
@@ -538,13 +565,27 @@ const Admin = ({ currentPath, navigate }) => {
         <div style={mainContentStyle}>
           {/* Header */}
           <div style={headerStyle}>
-            <div
-              style={{ fontWeight: "600", fontSize: "1rem", color: "#202223" }}
-            >
-              Dashboard
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              {isMobile && (
+                <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ padding: '0.5rem', color: '#202223', display: 'flex', alignItems: 'center' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+              )}
+              <div
+                style={{ fontWeight: "600", fontSize: "1rem", color: "#202223" }}
+              >
+                Dashboard
+              </div>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-              <span style={{ fontSize: "0.875rem", color: "#6d7175" }}>
+              <span style={{ 
+                fontSize: "0.875rem", 
+                color: "#6d7175",
+                maxWidth: isMobile ? '120px' : 'none',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
+              }}>
                 {user.email}
               </span>
               <div
@@ -620,7 +661,17 @@ const Admin = ({ currentPath, navigate }) => {
                     <h4 style={{ marginBottom: '1rem', color: '#202223', fontWeight: '600' }}>Manage Collections</h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
                       {formData.collections && formData.collections.map((item) => (
-                        <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', backgroundColor: '#f6f6f7', borderRadius: '0.5rem', border: '1px solid #e1e3e5' }}>
+                        <div key={item.id} style={{ 
+                          display: 'flex', 
+                          justifyContent: 'space-between', 
+                          alignItems: 'center', 
+                          padding: '1rem', 
+                          backgroundColor: '#f6f6f7', 
+                          borderRadius: '0.5rem', 
+                          border: '1px solid #e1e3e5',
+                          flexWrap: isMobile ? 'wrap' : 'nowrap',
+                          gap: isMobile ? '1rem' : '0.5rem'
+                        }}>
                           <div>
                             <div style={{ fontWeight: '600', color: '#202223' }}>{item.name}</div>
                             <div style={{ fontSize: '0.875rem', color: '#6d7175' }}>{item.description}</div>
