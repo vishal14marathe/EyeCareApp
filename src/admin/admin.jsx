@@ -80,6 +80,8 @@ const Admin = ({ currentPath, navigate }) => {
       setUser(currentUser);
       if (currentUser && currentPath !== "/admin/dashboard") {
         navigate("/admin/dashboard");
+      } else if (!currentUser && (currentPath === "/admin" || currentPath === "/admin/")) {
+        navigate("/admin/login");
       }
     });
     return () => unsubscribe();

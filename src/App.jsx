@@ -140,10 +140,10 @@ function App() {
           textAlign: 'center'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-blue)' }}><path d="M21 9a3 3 0 0 1-2.24 2.87c.2.22.24.58.05.82L16.4 15.5a3 3 0 1 1-3.4-4.5c.2-.22.24-.58.05-.82L10.6 7.5a3 3 0 1 1 3.4 4.5l2.4 2.7a1 1 0 0 0 1.5 0l2.4-2.7a1 1 0 0 0 0-1.2l-2.4-2.7A3 3 0 1 1 21 9z"></path></svg>
-            <span style={{ fontSize: '2.5rem', fontWeight: 800, letterSpacing: '0.05em' }}>VISIONARY ELITE</span>
+            <svg width={isMobile ? "32" : "48"} height={isMobile ? "32" : "48"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-blue)' }}><path d="M21 9a3 3 0 0 1-2.24 2.87c.2.22.24.58.05.82L16.4 15.5a3 3 0 1 1-3.4-4.5c.2-.22.24-.58.05-.82L10.6 7.5a3 3 0 1 1 3.4 4.5l2.4 2.7a1 1 0 0 0 1.5 0l2.4-2.7a1 1 0 0 0 0-1.2l-2.4-2.7A3 3 0 1 1 21 9z"></path></svg>
+            <span style={{ fontSize: isMobile ? '1.75rem' : '2.5rem', fontWeight: 800, letterSpacing: '0.05em' }}>VISIONARY ELITE</span>
           </div>
-          <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+          <p style={{ fontSize: isMobile ? '0.75rem' : '1rem', color: 'var(--text-secondary)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
             The Future of Vision, Redefined.
           </p>
           <div style={{
@@ -161,7 +161,7 @@ function App() {
   }
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', overflowX: 'hidden' }}>
       {/* Background Glows */}
       <div style={{
         position: 'absolute',
@@ -258,7 +258,7 @@ function App() {
 
       {/* Hero Section */}
       <section className="section-padding" style={{ position: 'relative', overflow: 'hidden' }}>
-        <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: isMobile ? '2rem' : '4rem', minHeight: isMobile ? 'auto' : '80vh' }}>
+        <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: isMobile ? '2rem' : '4rem', minHeight: isMobile ? 'auto' : '80vh', paddingTop: isMobile ? '6rem' : '0' }}>
           <div style={{ zIndex: 1 }}>
             <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent-blue)' }}>Clinical Precision & Luxury</span>
             <h1 className="hero-title" style={{ marginTop: '1rem', marginBottom: '1.5rem', lineHeight: '1.1' }}>
