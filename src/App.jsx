@@ -12,6 +12,13 @@ function App() {
   const [activeNav, setActiveNav] = useState('Collections');
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [siteData, setSiteData] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const unsubscribe = subscribeToLandingPageData((data) => {
@@ -199,44 +206,46 @@ function App() {
           <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.25rem' }}>VISIONARY ELITE</span>
         </div>
 
-        <div style={{ display: 'flex', gap: '2rem', fontWeight: 500, fontSize: '0.875rem' }}>
-          {['Collections', 'Virtual Try-On', 'Services', 'About'].map((item) => (
-            <a
-              key={item}
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveNav(item);
-                const id = item.toLowerCase().replace(' ', '-');
-                const element = document.getElementById(id);
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              style={{
-                color: activeNav === item ? 'var(--accent-blue)' : 'var(--text-secondary)',
-                transition: 'color 0.3s ease',
-                position: 'relative',
-                cursor: 'pointer'
-              }}
-            >
-              {item}
-              {activeNav === item && (
-                <span style={{
-                  position: 'absolute',
-                  bottom: '-4px',
-                  left: 0,
-                  width: '100%',
-                  height: '2px',
-                  backgroundColor: 'var(--accent-blue)',
-                  borderRadius: 'var(--radius-full)'
-                }} />
-              )}
-            </a>
-          ))}
-        </div>
+        {!isMobile && (
+          <div className="nav-links" style={{ display: 'flex', gap: '2rem', fontWeight: 500, fontSize: '0.875rem' }}>
+            {['Collections', 'Virtual Try-On', 'Services', 'About'].map((item) => (
+              <a
+                key={item}
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveNav(item);
+                  const id = item.toLowerCase().replace(' ', '-');
+                  const element = document.getElementById(id);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                style={{
+                  color: activeNav === item ? 'var(--accent-blue)' : 'var(--text-secondary)',
+                  transition: 'color 0.3s ease',
+                  position: 'relative',
+                  cursor: 'pointer'
+                }}
+              >
+                {item}
+                {activeNav === item && (
+                  <span style={{
+                    position: 'absolute',
+                    bottom: '-4px',
+                    left: 0,
+                    width: '100%',
+                    height: '2px',
+                    backgroundColor: 'var(--accent-blue)',
+                    borderRadius: 'var(--radius-full)'
+                  }} />
+                )}
+              </a>
+            ))}
+          </div>
+        )}
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="nav-buttons" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <button style={{ padding: '0.5rem' }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </button>
@@ -249,10 +258,10 @@ function App() {
 
       {/* Hero Section */}
       <section className="section-padding" style={{ position: 'relative', overflow: 'hidden' }}>
-        <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: '4rem', minHeight: '80vh' }}>
+        <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: isMobile ? '2rem' : '4rem', minHeight: isMobile ? 'auto' : '80vh' }}>
           <div style={{ zIndex: 1 }}>
             <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent-blue)' }}>Clinical Precision & Luxury</span>
-            <h1 style={{ fontSize: '4.5rem', marginTop: '1rem', marginBottom: '1.5rem', lineHeight: '1.1' }}>
+            <h1 className="hero-title" style={{ marginTop: '1rem', marginBottom: '1.5rem', lineHeight: '1.1' }}>
               {siteData?.heroTitle || "Define Your Vision with"} <span className="text-gradient">{siteData?.heroSubtitle || "Clinical Excellence."}</span>
             </h1>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem', marginBottom: '2.5rem', maxWidth: '500px' }}>
@@ -341,7 +350,7 @@ function App() {
                   overflow: 'hidden',
                   boxShadow: 'var(--shadow-lg)',
                   position: 'relative',
-                  height: '400px'
+                  height: isMobile ? '300px' : '400px'
                 }}
               >
                 <img src={item.image || "/model_sunglasses.png"} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
