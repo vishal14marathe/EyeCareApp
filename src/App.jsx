@@ -76,7 +76,7 @@ function App() {
 
       return () => elements.forEach(el => observer.unobserve(el));
     }
-  }, [loading]);
+  }, [loading, currentPath]);
 
   const handleMouseMove = (e) => {
     const card = e.currentTarget;
