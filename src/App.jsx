@@ -244,7 +244,7 @@ function App() {
 
             {!isMobile && (
               <div className="nav-links" style={{ display: 'flex', gap: '2rem', fontWeight: 500, fontSize: '0.875rem' }}>
-                {['Collections', 'Virtual Try-On', 'Services', 'About'].map((item) => (
+                {['About', 'Collections', 'Virtual Try-On', 'Services'].map((item) => (
                   <a
                     key={item}
                     href="#"
@@ -309,7 +309,7 @@ function App() {
                 gap: '0.5rem',
                 zIndex: 99
               }}>
-                {['Collections', 'Virtual Try-On', 'Services', 'About'].map((item) => (
+                {['About', 'Collections', 'Virtual Try-On', 'Services'].map((item) => (
                   <a
                     key={item}
                     href="#"
@@ -405,7 +405,72 @@ function App() {
             </div>
           </section>
 
+          {/* About Us */}
+          <section id="about" className="reveal" style={{ backgroundColor: '#ffffff', padding: isMobile ? '2rem 0' : '4rem 0 6rem 0' }}>
+            <div className="container">
+              <div className="grid grid-cols-2" style={{ gap: '4rem', alignItems: 'center' }}>
+                {/* Left Column: Text */}
+                <div>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent-blue)' }}>About Us</span>
+                  <h2 style={{ fontSize: '3rem', marginTop: '1rem', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)' }}>{siteData?.aboutTitle || "Crafting the Future of Vision"}</h2>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '2rem' }}>
+                    {siteData?.aboutDescription1 || "At Visionary Elite, we believe that eyewear is not just a medical necessity, but a statement of identity. For over a decade, we have been at the intersection of clinical precision and luxury aesthetics, crafting bespoke optical solutions for the discerning individual."}
+                  </p>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '3rem' }}>
+                    {siteData?.aboutDescription2 || "Our team of world-class optometrists and master artisans work in harmony to ensure that every frame we deliver provides unparalleled clarity and unmatched style."}
+                  </p>
+                  <div style={{ display: 'flex', gap: '3rem' }}>
+                    <div>
+                      <h3 style={{ fontSize: '2.5rem', color: 'var(--accent-blue)', fontFamily: 'var(--font-heading)' }}>{siteData?.stat1Value || "10+"}</h3>
+                      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{siteData?.stat1Label || "Years of Innovation"}</p>
+                    </div>
+                    <div>
+                      <h3 style={{ fontSize: '2.5rem', color: 'var(--accent-blue)', fontFamily: 'var(--font-heading)' }}>{siteData?.stat2Value || "50k+"}</h3>
+                      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{siteData?.stat2Label || "Happy Eyes"}</p>
+                    </div>
+                    <div>
+                      <h3 style={{ fontSize: '2.5rem', color: 'var(--accent-blue)', fontFamily: 'var(--font-heading)' }}>{siteData?.stat3Value || "100%"}</h3>
+                      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{siteData?.stat3Label || "Precision Guarantee"}</p>
+                    </div>
+                  </div>
+                </div>
 
+                {/* Right Column: Visual */}
+                <div style={{ position: 'relative' }}>
+                  <div style={{
+                    width: '100%',
+                    height: isMobile ? '300px' : '500px',
+                    backgroundColor: '#f8f9fa',
+                    borderRadius: 'var(--radius-2xl)',
+                    overflow: 'hidden',
+                    boxShadow: 'var(--shadow-cinematic)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <img
+                      src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
+                      alt="About Us"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                  {/* Glassmorphism accent card */}
+                  <div className="glass" style={{
+                    position: 'absolute',
+                    bottom: '2rem',
+                    left: '-2rem',
+                    padding: '2rem 2rem 2rem 3.5rem',
+                    borderRadius: 'var(--radius-xl)',
+                    maxWidth: '250px',
+                    boxShadow: 'var(--shadow-lg)'
+                  }}>
+                    <p style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)' }}>"{siteData?.quoteText || "The best way to predict the future is to create it."}"</p>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>- {siteData?.quoteAuthor || "Visionary Elite Team"}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
           {/* Featured Collections */}
           <section id="collections" className="section-padding reveal" style={{ backgroundColor: '#ffffff' }}>
@@ -638,72 +703,7 @@ function App() {
             </div>
           </section>
 
-          {/* About Us */}
-          <section id="about" className="reveal" style={{ backgroundColor: '#ffffff', padding: isMobile ? '2rem 0' : '4rem 0 6rem 0' }}>
-            <div className="container">
-              <div className="grid grid-cols-2" style={{ gap: '4rem', alignItems: 'center' }}>
-                {/* Left Column: Text */}
-                <div>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent-blue)' }}>About Us</span>
-                  <h2 style={{ fontSize: '3rem', marginTop: '1rem', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)' }}>{siteData?.aboutTitle || "Crafting the Future of Vision"}</h2>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '2rem' }}>
-                    {siteData?.aboutDescription1 || "At Visionary Elite, we believe that eyewear is not just a medical necessity, but a statement of identity. For over a decade, we have been at the intersection of clinical precision and luxury aesthetics, crafting bespoke optical solutions for the discerning individual."}
-                  </p>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '3rem' }}>
-                    {siteData?.aboutDescription2 || "Our team of world-class optometrists and master artisans work in harmony to ensure that every frame we deliver provides unparalleled clarity and unmatched style."}
-                  </p>
-                  <div style={{ display: 'flex', gap: '3rem' }}>
-                    <div>
-                      <h3 style={{ fontSize: '2.5rem', color: 'var(--accent-blue)', fontFamily: 'var(--font-heading)' }}>{siteData?.stat1Value || "10+"}</h3>
-                      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{siteData?.stat1Label || "Years of Innovation"}</p>
-                    </div>
-                    <div>
-                      <h3 style={{ fontSize: '2.5rem', color: 'var(--accent-blue)', fontFamily: 'var(--font-heading)' }}>{siteData?.stat2Value || "50k+"}</h3>
-                      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{siteData?.stat2Label || "Happy Eyes"}</p>
-                    </div>
-                    <div>
-                      <h3 style={{ fontSize: '2.5rem', color: 'var(--accent-blue)', fontFamily: 'var(--font-heading)' }}>{siteData?.stat3Value || "100%"}</h3>
-                      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{siteData?.stat3Label || "Precision Guarantee"}</p>
-                    </div>
-                  </div>
-                </div>
 
-                {/* Right Column: Visual */}
-                <div style={{ position: 'relative' }}>
-                  <div style={{
-                    width: '100%',
-                    height: isMobile ? '300px' : '500px',
-                    backgroundColor: '#f8f9fa',
-                    borderRadius: 'var(--radius-2xl)',
-                    overflow: 'hidden',
-                    boxShadow: 'var(--shadow-cinematic)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <img
-                      src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
-                      alt="About Us"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                  </div>
-                  {/* Glassmorphism accent card */}
-                  <div className="glass" style={{
-                    position: 'absolute',
-                    bottom: '2rem',
-                    left: '-2rem',
-                    padding: '2rem 2rem 2rem 3.5rem',
-                    borderRadius: 'var(--radius-xl)',
-                    maxWidth: '250px',
-                    boxShadow: 'var(--shadow-lg)'
-                  }}>
-                    <p style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)' }}>"{siteData?.quoteText || "The best way to predict the future is to create it."}"</p>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>- {siteData?.quoteAuthor || "Visionary Elite Team"}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
 
           {/* Promotional Banner */}
           <section className="container" style={{ marginBottom: '8rem', marginTop: '2rem' }}>
@@ -789,7 +789,7 @@ function App() {
             </div>
 
             <div className="container" style={{ marginTop: '5rem', paddingTop: '2rem', borderTop: '1px solid rgba(0,0,0,0.05)', textAlign: 'center', fontSize: '0.75rem' }}>
-              <p>&copy; 2026 Tanishka Eye Care Optical. All Rights Reserved. Luxottica & Clinical Excellence.</p>
+              <p>&copy; 2026 Tanishka Eye Care Optical. All Rights Reserved.</p>
             </div>
           </footer>
         </>
