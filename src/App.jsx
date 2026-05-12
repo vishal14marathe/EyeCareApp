@@ -226,7 +226,10 @@ function App() {
             alignItems: 'center',
             padding: isMobile ? '0.25rem 1rem' : '0.5rem 2rem',
             borderRadius: 'var(--radius-full)',
-            boxShadow: 'var(--shadow-cinematic)'
+            boxShadow: 'var(--shadow-cinematic)',
+            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)'
           }}>
             <div
               style={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }}
