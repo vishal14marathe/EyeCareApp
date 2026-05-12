@@ -1,5 +1,5 @@
 import { db, storage } from "../firebase/firebse";
-import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, setDoc, onSnapshot, addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const COLLECTION_NAME = "landingPage";
@@ -123,6 +123,16 @@ export const deleteService = async (id) => {
     return true;
   } catch (error) {
     console.error("Error deleting service:", error);
+    throw error;
+  }
+};
+export const addBooking = async (bookingData) => {
+  try {
+    const colRef = collection(db, "bookings");
+    await addDoc(colRef, { ...bookingData, createdAt: new Date().toISOString() });
+    return true;
+  } catch (error) {
+    console.error("Error adding booking:", error);
     throw error;
   }
 };

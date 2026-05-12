@@ -19,6 +19,7 @@ import {
   deleteService,
 } from "../servises/storageServises";
 import { doc, setDoc } from "firebase/firestore";
+import eyecarelogo from "../assets/eyecarelogo.png";
 
 const Admin = ({ currentPath, navigate }) => {
   const [email, setEmail] = useState("");
@@ -495,13 +496,23 @@ const Admin = ({ currentPath, navigate }) => {
         <div style={sidebarStyle}>
           <div
             style={{
-              padding: "0 1rem 2rem 1rem",
-              fontWeight: "700",
-              fontSize: "1.25rem",
-              color: "#202223",
+              padding: "0 1rem 1rem 1rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem"
             }}
           >
-            Visionary Elite
+            <img src={eyecarelogo} alt="Logo" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.1' }}>
+              <span style={{ fontWeight: 800, fontSize: '1.125rem', color: "#202223" }}>Tanishka</span>
+              <span style={{ fontSize: '0.75rem', color: '#6d7175', letterSpacing: '0.05em' }}>Eye Care Optical</span>
+            </div>
+          </div>
+          <div
+            style={{ ...sidebarLink, color: "#2c6ecb", marginBottom: "1rem" }}
+            onClick={() => navigate("/")}
+          >
+            <span>🌐</span> Go to Website
           </div>
           <div
             style={{
@@ -621,9 +632,6 @@ const Admin = ({ currentPath, navigate }) => {
               >
                 Hi, {user.displayName || "Welcome"} !
               </h1>
-              <p style={{ color: "#6d7175", marginTop: "0.5rem" }}>
-                You're off to a great start.
-              </p>
             </div>
 
             {/* Banner / Form */}

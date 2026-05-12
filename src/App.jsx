@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react';
 import glassImg from './assets/glassImgNew.png'
 import glass4 from './assets/glass4.gif'
 import Admin from './admin/admin'
-import { subscribeToLandingPageData } from './servises/storageServises'
+import { subscribeToLandingPageData, addBooking } from './servises/storageServises'
+import eyecarelogo from './assets/eyecarelogo.png';
 
 function App() {
   const [activeTab, setActiveTab] = useState('all');
   const [loading, setLoading] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
-  const [activeNav, setActiveNav] = useState('Collections');
+  const [activeNav, setActiveNav] = useState('');
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [siteData, setSiteData] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -119,7 +120,9 @@ function App() {
       <div style={{
         position: 'fixed',
         top: 0, left: 0, width: '100vw', height: '100vh',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        background: 'linear-gradient(-45deg, #f0f4f8, #e6f0fa, #ffffff, #f0f4f8)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientBG 10s ease infinite',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         zIndex: 1000,
@@ -133,20 +136,26 @@ function App() {
         color: '#0f172a',
         fontFamily: 'var(--font-heading)'
       }}>
+        {/* Aurora Background Effect */}
+        <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(255, 0, 127, 0.15)', filter: 'blur(80px)', borderRadius: '50%', top: '20%', left: '10%', zIndex: 0 }}></div>
+        <div style={{ position: 'absolute', width: '400px', height: '400px', background: 'rgba(0, 255, 255, 0.15)', filter: 'blur(100px)', borderRadius: '50%', bottom: '20%', right: '10%', zIndex: 0 }}></div>
+        <div style={{ position: 'absolute', width: '300px', height: '300px', background: 'rgba(124, 58, 237, 0.15)', filter: 'blur(80px)', borderRadius: '50%', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 0 }}></div>
+
         {/* Content (Centered) */}
         <div style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          textAlign: 'center'
+          textAlign: 'center',
+          zIndex: 1 // Ensure content is above the background effects
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-            <svg width={isMobile ? "32" : "48"} height={isMobile ? "32" : "48"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-blue)' }}><path d="M21 9a3 3 0 0 1-2.24 2.87c.2.22.24.58.05.82L16.4 15.5a3 3 0 1 1-3.4-4.5c.2-.22.24-.58.05-.82L10.6 7.5a3 3 0 1 1 3.4 4.5l2.4 2.7a1 1 0 0 0 1.5 0l2.4-2.7a1 1 0 0 0 0-1.2l-2.4-2.7A3 3 0 1 1 21 9z"></path></svg>
-            <span style={{ fontSize: isMobile ? '1.75rem' : '2.5rem', fontWeight: 800, letterSpacing: '0.05em' }}>VISIONARY ELITE</span>
+          <div style={{ marginBottom: '0.5rem', animation: 'fadeInScale 1s ease-out' }}>
+            <img src={eyecarelogo} alt="Logo" style={{ width: '100px', height: '100px', objectFit: 'contain' }} />
           </div>
-          <p style={{ fontSize: isMobile ? '0.75rem' : '1rem', color: 'var(--text-secondary)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-            The Future of Vision, Redefined.
-          </p>
+          <div style={{ animation: 'fadeSlideUp 1s ease-out 0.3s both', textAlign: 'center' }}>
+            <div style={{ fontSize: isMobile ? '2rem' : '3rem', fontWeight: 800, letterSpacing: '0.05em', color: '#0f172a', fontFamily: 'var(--font-heading)' }}>Tanishka</div>
+            <div style={{ fontSize: isMobile ? '0.875rem' : '1.25rem', color: 'var(--text-secondary)', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '0.25rem' }}>Eye Care Optical</div>
+          </div>
           <div style={{
             width: '40px',
             height: '40px',
@@ -198,13 +207,22 @@ function App() {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: isMobile ? '0.5rem 1rem' : '1rem 2rem',
+            padding: isMobile ? '0.25rem 1rem' : '0.5rem 2rem',
             borderRadius: 'var(--radius-full)',
             boxShadow: 'var(--shadow-cinematic)'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-blue)' }}><path d="M21 9a3 3 0 0 1-2.24 2.87c.2.22.24.58.05.82L16.4 15.5a3 3 0 1 1-3.4-4.5c.2-.22.24-.58.05-.82L10.6 7.5a3 3 0 1 1 3.4 4.5l2.4 2.7a1 1 0 0 0 1.5 0l2.4-2.7a1 1 0 0 0 0-1.2l-2.4-2.7A3 3 0 1 1 21 9z"></path></svg>
-              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.25rem' }}>VISIONARY ELITE</span>
+            <div
+              style={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }}
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setActiveNav('');
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                <img src={eyecarelogo} alt="Logo" style={{ width: '45px', height: '43px', objectFit: 'contain' }} />
+                <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.25rem' }}>Tanishka</span>
+              </div>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', letterSpacing: '0.05em', marginTop: '0.1rem', marginLeft: '16px' }}>Eye Care Optical</span>
             </div>
 
             {!isMobile && (
@@ -252,13 +270,7 @@ function App() {
               </button>
             ) : (
               <div className="nav-buttons" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <button style={{ padding: '0.5rem' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                </button>
-                <button style={{ padding: '0.5rem' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                </button>
-                <button className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>Book Test</button>
+                <button className="btn btn-primary" style={{ padding: '0.5rem 1rem' }} onClick={() => navigate('/booktest')}>Book Test</button>
               </div>
             )}
 
@@ -313,7 +325,7 @@ function App() {
 
           {/* Hero Section */}
           <section className="section-padding" style={{ position: 'relative', overflow: 'hidden' }}>
-            <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: isMobile ? '2rem' : '4rem', minHeight: isMobile ? 'auto' : '80vh', paddingTop: isMobile ? '12rem' : '0' }}>
+            <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: isMobile ? '2rem' : '4rem', minHeight: isMobile ? 'auto' : '80vh', paddingTop: isMobile ? '6rem' : '8rem' }}>
               <div style={{ zIndex: 1 }}>
                 <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent-blue)' }}>Clinical Precision & Luxury</span>
                 <h1 className="hero-title" style={{ marginTop: '1rem', marginBottom: '1.5rem', lineHeight: '1.1' }}>
@@ -323,8 +335,8 @@ function App() {
                   {siteData?.heroDescription || "Experience the pinnacle of optical engineering paired with high-fashion aesthetics. Precision lenses met with avant-garde design."}
                 </p>
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                  <button className="btn btn-primary" style={{ padding: '0.75rem 2rem' }}>Explore Collection</button>
-                  <button className="btn btn-secondary" style={{ padding: '0.75rem 2rem' }}>Book Eye Test</button>
+                  <button className="btn btn-primary" style={{ padding: '0.75rem 2rem' }} onClick={() => { const el = document.getElementById('collections'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }}>Explore Collection</button>
+                  <button className="btn btn-secondary" style={{ padding: '0.75rem 2rem' }} onClick={() => navigate('/booktest')}>Book Eye Test</button>
                 </div>
               </div>
 
@@ -478,7 +490,7 @@ function App() {
           <section id="virtual-try-on" className="section-padding" style={{ position: 'relative' }}>
             <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: '4rem' }}>
 
-              <div style={{ position: 'relative' }}>
+              <div style={{ position: 'relative', marginBottom: isMobile ? '3rem' : '5rem' }}>
                 <div
                   style={{
                     borderRadius: 'var(--radius-2xl)',
@@ -530,15 +542,15 @@ function App() {
                   boxShadow: 'var(--shadow-lg)'
                 }}>
                   <div>
-                    <p style={{ fontSize: isMobile ? '0.6rem' : '0.75rem', color: 'var(--text-muted)' }}>MAPPING</p>
+                    <p style={{ fontSize: isMobile ? '0.6rem' : '0.75rem', color: 'var(--text-secondary)' }}>MAPPING</p>
                     <p style={{ fontSize: isMobile ? '1rem' : '1.25rem', fontWeight: 700, color: 'var(--accent-blue)' }}>1,024</p>
                   </div>
                   <div style={{ borderLeft: '1px solid rgba(0,0,0,0.1)', paddingLeft: isMobile ? '0.5rem' : '1.5rem' }}>
-                    <p style={{ fontSize: isMobile ? '0.6rem' : '0.75rem', color: 'var(--text-muted)' }}>LATENCY</p>
+                    <p style={{ fontSize: isMobile ? '0.6rem' : '0.75rem', color: 'var(--text-secondary)' }}>LATENCY</p>
                     <p style={{ fontSize: isMobile ? '1rem' : '1.25rem', fontWeight: 700, color: '#10b981' }}>12ms</p>
                   </div>
                   <div style={{ borderLeft: '1px solid rgba(0,0,0,0.1)', paddingLeft: isMobile ? '0.5rem' : '1.5rem' }}>
-                    <p style={{ fontSize: isMobile ? '0.6rem' : '0.75rem', color: 'var(--text-muted)' }}>STATUS</p>
+                    <p style={{ fontSize: isMobile ? '0.6rem' : '0.75rem', color: 'var(--text-secondary)' }}>STATUS</p>
                     <p style={{ fontSize: isMobile ? '1rem' : '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>READY</p>
                   </div>
                 </div>
@@ -579,7 +591,7 @@ function App() {
           {/* Services */}
           <section id="services" className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)' }}>
             <div className="container">
-              <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+              <div style={{ textAlign: 'center', marginBottom: isMobile ? '1.5rem' : '4rem' }}>
                 <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent-blue)' }}>Expert Care</span>
                 <h2 style={{ fontSize: '2.5rem', marginTop: '0.5rem' }}>{siteData?.servicesTitle || "Clinical Excellence Delivered."}</h2>
               </div>
@@ -590,7 +602,7 @@ function App() {
                   { id: 2, title: "Custom Lens Crafting", description: "Lenses tailored specifically to your prescription and lifestyle needs." },
                   { id: 3, title: "Style Consultation", description: "Personal styling to find the perfect frames that match your facial structure." }
                 ]).map((item) => (
-                  <div key={item.id} className="glass" style={{ padding: '3rem 2rem', borderRadius: 'var(--radius-xl)', textAlign: 'center', transition: 'var(--transition-normal)' }}>
+                  <div key={item.id} className="glass" style={{ padding: isMobile ? '1.5rem' : '3rem 2rem', borderRadius: 'var(--radius-xl)', textAlign: 'center', transition: 'var(--transition-normal)' }}>
                     <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'rgba(37, 99, 235, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem auto', color: 'var(--accent-blue)' }}>
                       {item.id === 1 ? (
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
@@ -610,7 +622,7 @@ function App() {
           </section>
 
           {/* About Us */}
-          <section id="about" style={{ backgroundColor: '#ffffff', padding: '6rem 0' }}>
+          <section id="about" style={{ backgroundColor: '#ffffff', padding: isMobile ? '2rem 0' : '4rem 0 6rem 0' }}>
             <div className="container">
               <div className="grid grid-cols-2" style={{ gap: '4rem', alignItems: 'center' }}>
                 {/* Left Column: Text */}
@@ -663,7 +675,7 @@ function App() {
                     position: 'absolute',
                     bottom: '2rem',
                     left: '-2rem',
-                    padding: '2rem',
+                    padding: '2rem 2rem 2rem 3.5rem',
                     borderRadius: 'var(--radius-xl)',
                     maxWidth: '250px',
                     boxShadow: 'var(--shadow-lg)'
@@ -701,12 +713,15 @@ function App() {
           </section>
 
           {/* Footer */}
-          <footer style={{ backgroundColor: 'var(--bg-dark)', color: 'rgba(255,255,255,0.6)', padding: '5rem 0' }}>
+          <footer style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)', padding: '5rem 0', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
             <div className="container grid grid-cols-4" style={{ gap: '3rem' }}>
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#fff', marginBottom: '1.5rem' }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 9a3 3 0 0 1-2.24 2.87c.2.22.24.58.05.82L16.4 15.5a3 3 0 1 1-3.4-4.5c.2-.22.24-.58.05-.82L10.6 7.5a3 3 0 1 1 3.4 4.5l2.4 2.7a1 1 0 0 0 1.5 0l2.4-2.7a1 1 0 0 0 0-1.2l-2.4-2.7A3 3 0 1 1 21 9z"></path></svg>
-                  <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.125rem' }}>VISIONARY ELITE</span>
+                <div style={{ display: 'flex', flexDirection: 'column', color: '#0f172a', marginBottom: '1.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <img src={eyecarelogo} alt="Logo" style={{ width: '45px', height: '43px', objectFit: 'contain' }} />
+                    <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.25rem' }}>Tanishka</span>
+                  </div>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', letterSpacing: '0.05em', marginTop: '0.1rem', marginLeft: '16px' }}>Eye Care Optical</span>
                 </div>
                 <p style={{ fontSize: '0.875rem', lineHeight: '1.6' }}>
                   Setting the standard for luxury eyewear through clinical innovation and timeless design.
@@ -714,7 +729,7 @@ function App() {
               </div>
 
               <div>
-                <h4 style={{ color: '#fff', marginBottom: '1.5rem', fontSize: '1rem' }}>Discover</h4>
+                <h4 style={{ color: '#0f172a', marginBottom: '1.5rem', fontSize: '1rem' }}>Discover</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.875rem' }}>
                   <a href="#">New Arrivals</a>
                   <a href="#">Best Sellers</a>
@@ -724,7 +739,7 @@ function App() {
               </div>
 
               <div>
-                <h4 style={{ color: '#fff', marginBottom: '1.5rem', fontSize: '1rem' }}>Support</h4>
+                <h4 style={{ color: '#0f172a', marginBottom: '1.5rem', fontSize: '1rem' }}>Support</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.875rem' }}>
                   <a href="#">Contact Us</a>
                   <a href="#">FAQs</a>
@@ -735,7 +750,7 @@ function App() {
               </div>
 
               <div>
-                <h4 style={{ color: '#fff', marginBottom: '1.5rem', fontSize: '1rem' }}>Stay Connected</h4>
+                <h4 style={{ color: '#0f172a', marginBottom: '1.5rem', fontSize: '1rem' }}>Stay Connected</h4>
                 <p style={{ fontSize: '0.875rem', marginBottom: '1.5rem' }}>Subscribe to receive updates on new collections and exclusive offers.</p>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                   <input
@@ -745,9 +760,9 @@ function App() {
                       flex: 1,
                       padding: '0.75rem 1rem',
                       borderRadius: 'var(--radius-md)',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      backgroundColor: 'rgba(255,255,255,0.05)',
-                      color: '#fff',
+                      border: '1px solid rgba(0,0,0,0.1)',
+                      backgroundColor: '#f8f9fa',
+                      color: '#0f172a',
                       fontSize: '0.875rem'
                     }}
                   />
@@ -756,11 +771,13 @@ function App() {
               </div>
             </div>
 
-            <div className="container" style={{ marginTop: '5rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', fontSize: '0.75rem' }}>
-              <p>&copy; 2026 Visionary Elite. All Rights Reserved. Luxottica & Clinical Excellence.</p>
+            <div className="container" style={{ marginTop: '5rem', paddingTop: '2rem', borderTop: '1px solid rgba(0,0,0,0.05)', textAlign: 'center', fontSize: '0.75rem' }}>
+              <p>&copy; 2026 Tanishka Eye Care Optical. All Rights Reserved. Luxottica & Clinical Excellence.</p>
             </div>
           </footer>
         </>
+      ) : currentPath === '/booktest' ? (
+        <BookTestPage navigate={navigate} />
       ) : currentPath.startsWith('/admin') ? (
         <Admin currentPath={currentPath} navigate={navigate} />
       ) : (
@@ -773,5 +790,75 @@ function App() {
     </div>
   );
 }
+
+const BookTestPage = ({ navigate }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await addBooking(formData);
+      setIsSuccess(true);
+      setFormData({ name: '', email: '', phone: '' });
+    } catch (error) {
+      alert("Error booking test. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div style={{ padding: '10rem 2rem', textAlign: 'center' }}>
+      <h2 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Book Eye Test</h2>
+      <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>Schedule your comprehensive eye examination with our specialists.</p>
+
+      {isSuccess ? (
+        <div style={{ maxWidth: '400px', margin: '0 auto', background: '#ecfdf5', padding: '2rem', borderRadius: 'var(--radius-xl)', color: '#047857' }}>
+          <h3 style={{ marginBottom: '0.5rem' }}>Booking Successful!</h3>
+          <p>We will contact you shortly to confirm your appointment.</p>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto', background: '#fff', padding: '2rem', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-lg)' }}>
+          <input
+            type="text"
+            placeholder="Your Name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            required
+            style={{ width: '100%', padding: '0.75rem', marginBottom: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid rgba(0,0,0,0.1)' }}
+          />
+          <input
+            type="email"
+            placeholder="Your Email"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            required
+            style={{ width: '100%', padding: '0.75rem', marginBottom: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid rgba(0,0,0,0.1)' }}
+          />
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            value={formData.phone}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+            required
+            style={{ width: '100%', padding: '0.75rem', marginBottom: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid rgba(0,0,0,0.1)' }}
+          />
+          <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Submit Booking'}
+          </button>
+        </form>
+      )}
+
+      <button onClick={() => navigate('/')} className="btn btn-secondary" style={{ marginTop: '2rem' }}>Back to Home</button>
+    </div>
+  );
+};
 
 export default App;
