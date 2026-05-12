@@ -708,29 +708,7 @@ function App() {
 
 
 
-          {/* Promotional Banner */}
-          <section className="container" style={{ marginBottom: '8rem', marginTop: '2rem' }}>
-            <div style={{
-              background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
-              borderRadius: 'var(--radius-2xl)',
-              padding: '1rem',
-              textAlign: 'center',
-              position: 'relative',
-              overflow: 'hidden',
-              boxShadow: 'var(--shadow-cinematic)'
-            }}>
-              <img
-                src={glass4}
-                alt="Promotion"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  display: 'block',
-                  borderRadius: 'var(--radius-xl)'
-                }}
-              />
-            </div>
-          </section>
+
 
           {/* Footer */}
           <footer style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)', padding: '5rem 0', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
