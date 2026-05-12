@@ -61,6 +61,23 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!loading) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      const elements = document.querySelectorAll('.reveal');
+      elements.forEach(el => observer.observe(el));
+
+      return () => elements.forEach(el => observer.unobserve(el));
+    }
+  }, [loading]);
+
   const handleMouseMove = (e) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -324,7 +341,7 @@ function App() {
           </nav>
 
           {/* Hero Section */}
-          <section className="section-padding" style={{ position: 'relative', overflow: 'hidden' }}>
+          <section className="section-padding reveal" style={{ position: 'relative', overflow: 'hidden' }}>
             <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: isMobile ? '2rem' : '4rem', minHeight: isMobile ? 'auto' : '80vh', paddingTop: isMobile ? '6rem' : '8rem' }}>
               <div style={{ zIndex: 1 }}>
                 <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent-blue)' }}>Clinical Precision & Luxury</span>
@@ -362,7 +379,7 @@ function App() {
                           maxWidth: '500px',
                           filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.15))',
                           mixBlendMode: 'multiply',
-                          transition: 'filter 0.1s ease'
+                          transition: 'filter 0.1s ease, transform 0.3s ease'
                         }}
                       />
                       {/* Lens Reflection Stunt */}
@@ -391,7 +408,7 @@ function App() {
 
 
           {/* Featured Collections */}
-          <section id="collections" className="section-padding" style={{ backgroundColor: '#ffffff' }}>
+          <section id="collections" className="section-padding reveal" style={{ backgroundColor: '#ffffff' }}>
             <div className="container">
               <div className="flex justify-between items-center" style={{ marginBottom: '3rem' }}>
                 <div>
@@ -487,7 +504,7 @@ function App() {
           </section>
 
           {/* AI Virtual Try-On */}
-          <section id="virtual-try-on" className="section-padding" style={{ position: 'relative' }}>
+          <section id="virtual-try-on" className="section-padding reveal" style={{ position: 'relative' }}>
             <div className="container grid grid-cols-2" style={{ alignItems: 'center', gap: '4rem' }}>
 
               <div style={{ position: 'relative', marginBottom: isMobile ? '3rem' : '5rem' }}>
@@ -589,7 +606,7 @@ function App() {
           </section>
 
           {/* Services */}
-          <section id="services" className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+          <section id="services" className="section-padding reveal" style={{ backgroundColor: 'var(--bg-secondary)' }}>
             <div className="container">
               <div style={{ textAlign: 'center', marginBottom: isMobile ? '1.5rem' : '4rem' }}>
                 <span style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent-blue)' }}>Expert Care</span>
@@ -622,7 +639,7 @@ function App() {
           </section>
 
           {/* About Us */}
-          <section id="about" style={{ backgroundColor: '#ffffff', padding: isMobile ? '2rem 0' : '4rem 0 6rem 0' }}>
+          <section id="about" className="reveal" style={{ backgroundColor: '#ffffff', padding: isMobile ? '2rem 0' : '4rem 0 6rem 0' }}>
             <div className="container">
               <div className="grid grid-cols-2" style={{ gap: '4rem', alignItems: 'center' }}>
                 {/* Left Column: Text */}
