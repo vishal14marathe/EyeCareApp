@@ -676,7 +676,7 @@ const Admin = ({ currentPath, navigate }) => {
                             <div style={{ fontWeight: '600', color: '#202223' }}>{item.name}</div>
                             <div style={{ fontSize: '0.875rem', color: '#6d7175' }}>{item.description}</div>
                           </div>
-                          <div style={{ display: 'flex', gap: '0.5rem' }}>
+                          <div style={{ display: 'flex', gap: '0.5rem', marginLeft: 'auto' }}>
                             <button 
                               type="button" 
                               onClick={() => {
@@ -813,7 +813,7 @@ const Admin = ({ currentPath, navigate }) => {
                             <div style={{ fontWeight: '600', color: '#202223' }}>{item.title}</div>
                             <div style={{ fontSize: '0.875rem', color: '#6d7175' }}>{item.description}</div>
                           </div>
-                          <div style={{ display: 'flex', gap: '0.5rem' }}>
+                          <div style={{ display: 'flex', gap: '0.5rem', marginLeft: 'auto' }}>
                             <button 
                               type="button" 
                               onClick={() => {
