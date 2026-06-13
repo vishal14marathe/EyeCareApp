@@ -971,7 +971,7 @@ const Admin = ({ currentPath, navigate }) => {
           </div>
         </div>
 
-        //add the comit
+        
         {toast.show && (
           <div style={{
             position: 'fixed',
