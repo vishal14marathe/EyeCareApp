@@ -1,16 +1,17 @@
 # 👓 EyeCare App
 
-EyeCare App is a modern React-based eyewear showcase application that helps users explore different glasses and sunglasses collections through an interactive and visually appealing interface. The project includes 3D model visualization, smooth animations, and Firebase integration for storing and managing data.
+EyeCare App is a modern React-based eyewear showcase application that helps users explore different glasses and sunglasses collections through an interactive and visually appealing interface. The application features 3D eyewear visualization, smooth animations, Firebase integration, and a fully responsive design for an enhanced user experience.
 
 ## 🚀 Features
 
-- Modern and responsive UI
+- Modern and responsive user interface
 - Interactive eyewear collections
 - 3D glasses visualization using Three.js
 - Smooth animations with GSAP and Framer Motion
-- Firebase integration
+- Firebase integration for data management
 - Mobile-friendly design
-- Fast performance with Vite
+- Fast performance powered by Vite
+- Admin dashboard for managing products and content
 
 ---
 
@@ -30,7 +31,7 @@ EyeCare App is a modern React-based eyewear showcase application that helps user
 - React Three Fiber
 - React Three Drei
 
-### Backend Services
+### Backend & Database
 - Firebase
 
 ---
@@ -42,18 +43,25 @@ src/
 │
 ├── components/
 │   ├── Hero.jsx
-│   └── Collections.jsx
+│   ├── Navbar.jsx
+│   ├── Footer.jsx
+│   └── ProductCard.jsx
 │
 ├── pages/
-│   ├── Hero.jsx
-│   └── GlassesModel.jsx
+│   ├── Home.jsx
+│   ├── Collections.jsx
+│   ├── ProductDetails.jsx
+│   └── Admin.jsx
 │
 ├── firebase/
-│   └── firebse.js
+│   └── firebase.js
 │
 ├── assets/
 │
-└── main.jsx
+├── App.jsx
+├── main.jsx
+│
+└── styles/
 ```
 
 ---
@@ -73,7 +81,7 @@ cd EyeCareApp
 npm install
 ```
 
-### Start Development Server
+### Run Development Server
 
 ```bash
 npm run dev
@@ -87,9 +95,9 @@ http://localhost:5173
 
 ---
 
-## 🔥 Firebase Setup
+## 🔥 Firebase Configuration
 
-Create a `.env` file in the root directory and add:
+Create a `.env` file in the root directory and add your Firebase credentials:
 
 ```env
 VITE_FIREBASE_API_KEY=your_api_key
@@ -102,13 +110,28 @@ VITE_FIREBASE_APP_ID=your_app_id
 
 ---
 
+## 🔑 Admin Credentials
+
+Use the following credentials to access the admin dashboard:
+
+| Field | Value |
+|---------|---------|
+| Email | vishalmarathe@gmail.com |
+| Password | 123456 |
+
+> ⚠️ These credentials are provided for testing and demonstration purposes only.
+
+---
+
 ## 📦 Build for Production
+
+Create an optimized production build:
 
 ```bash
 npm run build
 ```
 
-Preview production build:
+Preview the production build:
 
 ```bash
 npm run preview
@@ -118,7 +141,7 @@ npm run preview
 
 ## 🌐 Deployment
 
-This project can be deployed on:
+The project can be deployed on:
 
 - Vercel
 - Netlify
@@ -126,14 +149,28 @@ This project can be deployed on:
 
 ---
 
+## 🎯 Future Enhancements
+
+- User Authentication
+- Wishlist Feature
+- Shopping Cart
+- Online Payments
+- Product Reviews & Ratings
+- AR-Based Glasses Try-On
+- Dark Mode Support
+
+---
+
 ## 👨‍💻 Author
 
-**Vishal**
+**Vishal Marathe**
 
-Frontend Developer | MERN Stack Developer
+MERN Stack Developer | React Developer
+
+GitHub: https://github.com/your-github-username
 
 ---
 
 ## 📄 License
 
-This project is developed for educational and portfolio purposes.
+This project is developed for educational, learning, and portfolio purposes.
