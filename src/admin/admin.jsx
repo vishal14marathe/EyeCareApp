@@ -455,13 +455,13 @@ const Admin = ({ currentPath, navigate }) => {
               color: "#6d7175",
             }}
           >
-            Don't have an account?{" "}
+            {/* Don't have an account?{" "}
             <span
               style={{ color: "#2c6ecb", cursor: "pointer", fontWeight: "600" }}
               onClick={() => navigate("/admin/register")}
             >
               Register
-            </span>
+            </span> */}
           </p>
         </div>
       </div>
